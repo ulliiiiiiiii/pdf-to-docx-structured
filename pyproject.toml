@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-to-docx-structured"
+version = "0.1.0"
+description = "PDF to an editable Word file: paragraphs, headings, lists and tables rebuilt from the text layout."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "ulliiiiiiiii" }]
+dependencies = ["pdfplumber>=0.11"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+pdfdocx = "pdfdocx.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ulliiiiiiiii/pdf-to-docx-structured"
+
+[tool.setuptools]
+packages = ["pdfdocx"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
