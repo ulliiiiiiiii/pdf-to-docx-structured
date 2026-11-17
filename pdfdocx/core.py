@@ -17,9 +17,9 @@ from pathlib import Path
 from pdfdocx import office
 
 PAGE_NUMBER = re.compile(
-    r"^(?:seite|page|стр\.?)?\s*[-–]?\s*\d{1,4}\s*[-–]?(?:\s*(?:von|of|/|из)\s*\d{1,4})?$", re.I
+    r"^(?:seite|page|стр\.?)?\s*[-\u2013]?\s*\d{1,4}\s*[-\u2013]?(?:\s*(?:von|of|/|из)\s*\d{1,4})?$", re.I
 )
-GLYPH = re.compile(r"^[•·▪◦‣●■□]\s*")  # a bullet glyph always starts a list item
+GLYPH = re.compile(r"^[\u2022\u00b7\u25aa\u25e6\u2023\u25cf\u25a0\u25a1]\s*")  # a bullet glyph always starts a list item
 NUMBER = re.compile(r"^\d{1,2}[.)]\s+")  # "1. " only counts at the start of a paragraph
 SENTENCE_END = (".", ":", ";", "!", "?")
 CONJUNCTIONS = {"und", "oder", "bzw", "sowie", "bis", "and", "or", "и", "или"}  # "Haupt-" + "und" keeps its hyphen
