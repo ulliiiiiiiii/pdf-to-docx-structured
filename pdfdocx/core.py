@@ -17,7 +17,7 @@ from pathlib import Path
 from pdfdocx import office
 
 PAGE_NUMBER = re.compile(
-    r"^(?:seite|page|стр\.?)?\s*[-\u2013]?\s*\d{1,4}\s*[-\u2013]?(?:\s*(?:von|of|/|из)\s*\d{1,4})?$", re.I
+    r"^(?:seite|page|стр\.?)?\s*[-\u2013]?\s*\d{1,4}\s*[-\u2013]?(?:\s*(?:von|of|/|из)\s*\d{1,4})?$", re.IGNORECASE
 )
 GLYPH = re.compile(r"^[\u2022\u00b7\u25aa\u25e6\u2023\u25cf\u25a0\u25a1]\s*")  # a bullet glyph always starts a list item
 NUMBER = re.compile(r"^\d{1,2}[.)]\s+")  # "1. " only counts at the start of a paragraph
@@ -136,7 +136,7 @@ def read(path: Path) -> list[Block]:
                           rows=[[" ".join((c or "").split()) for c in r] for r in t.extract() if r and any(r)])
                     for t in tables
                 ]))
-    except Exception as exc:  # broken or encrypted: pdfplumber has its own error types
+    except Exception as exc:  # noqa: BLE001  (broken or encrypted PDFs raise pdfplumber's own errors)
         raise ValueError(f"PDF not readable ({type(exc).__name__})") from None
     return assemble(pages)
 
